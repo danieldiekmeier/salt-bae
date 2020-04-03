@@ -1,235 +1,341 @@
 <script>
-  import * as Spoons from "../lib/spoons";
+  import Switch from './Switch.svelte'
+  import * as Spoons from '../lib/spoons'
+  import claraImage from '../assets/clara.png'
 
-  let selected = 0;
-  let selectedSalt = 0;
-  let amount = 1;
+  let selected = 0
+  let selectedSalt = 0
+  let amount = 1
 
   const options = [
-    { name: "1/8 tsp", amount: 1 / 8 },
-    { name: "1/4 tsp", amount: 1 / 4 },
-    { name: "1/2 tsp", amount: 1 / 2 },
-    { name: "1 tsp", amount: 1 },
-    { name: "2 3/4", amount: 2.75 },
-    { name: "1 1/2", amount: 1.5 },
-    { name: "1 tbsp", amount: 3 }
-  ];
+    { name: '1/8 tsp', amount: 1 / 8 },
+    { name: '1/4 tsp', amount: 1 / 4 },
+    { name: '1/2 tsp', amount: 1 / 2 },
+    { name: '1 tsp', amount: 1 },
+    { name: '2 3/4', amount: 2.75 },
+    { name: '1 1/2', amount: 1.5 },
+    { name: '1 tbsp', amount: 3 }
+  ]
 
   const salts = [
-    { name: "Morton’s Kosher Salt", gramsPerTeaSpoon: 241 / 48, bold: true },
+    { name: 'Morton’s Kosher Salt', gramsPerTeaSpoon: 241 / 48, bold: true },
     {
-      name: "Diamond Crystal Kosher Salt",
+      name: 'Diamond Crystal Kosher Salt',
       gramsPerTeaSpoon: 137 / 48,
       bold: true
     }
-    // { name: "Morton’s Table Salt", gramsPerTeaSpoon: 76.0 / 12 },
-    // { name: "Morton Pickling Salt", gramsPerTeaSpoon: 74.0 / 12 },
-    // { name: "La Baleine Coarse Sea Salt", gramsPerTeaSpoon: 66.8 / 12 },
-    // { name: "Real Salt Fine Sea Salt", gramsPerTeaSpoon: 65.0 / 12 },
-    // { name: "La Baleine Fine Sea Salt", gramsPerTeaSpoon: 64.8 / 12 },
-    // { name: "Real Salt Kosher Salt", gramsPerTeaSpoon: 64.0 / 12 },
-    // { name: "Maldon Sea Salt", gramsPerTeaSpoon: 33.2 / 12 }
-  ];
+  ]
 
   function changeAmount(howMuch) {
-    return () => (amount = Math.max(amount + howMuch, 0));
+    return () => (amount = Math.max(amount + howMuch, 0))
   }
 </script>
 
 <style lang="scss">
+  $c-background: #ffda08;
+  $c-main: #424874;
+
+  @font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Nunito SemiBold'), local('Nunito-SemiBold'),
+      url('../assets/fonts/nunito-v12-latin-600.woff2') format('woff2'),
+      url('../assets/fonts/nunito-v12-latin-600.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Nunito';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Nunito SemiBold Italic'), local('Nunito-SemiBoldItalic'),
+      url('../assets/fonts/nunito-v12-latin-600italic.woff2') format('woff2'),
+      url('../assets/fonts/nunito-v12-latin-600italic.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Nunito Black'), local('Nunito-Black'),
+      url('../assets/fonts/nunito-v12-latin-900.woff2') format('woff2'),
+      url('../assets/fonts/nunito-v12-latin-900.woff') format('woff');
+  }
+
   :global(*) {
     position: relative;
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
   }
 
   :global(body) {
-    padding: 1em;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    padding: 0.5em;
+    padding-top: 0;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
     line-height: 1.4;
+    background-color: rgba($c-main, 0.05);
+
+    @media (min-width: 350px) {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
   }
 
-  .Container {
+  :global(button, input) {
+    font-family: inherit;
+  }
+
+  .u-limiter {
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .Bean {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    @media (min-width: 500px) {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+
+  .Bean-title {
+    font-size: 3em;
+    line-height: 0.8;
+    color: $c-main;
+    letter-spacing: -0.03em;
+
+    @media (min-width: 375px) {
+      font-size: 4em;
+    }
+  }
+
+  .Bean-image {
+    display: block;
+    width: (728px / 5);
+    height: (807px / 5);
+    min-width: (728px / 5);
+    margin-bottom: -2rem;
+    mix-blend-mode: multiply;
+
+    @media (min-width: 350px) {
+      margin-right: 1em;
+    }
+  }
+
+  .Container {
     padding: 1em;
 
-    background-color: #dee3e2;
-    border: 3px solid #18b0b0;
+    background-color: $c-background;
+    // border: 3px solid $c-main;
     border-radius: 1em;
-    box-shadow: 0 5px 10px rgba(black, 0.1);
+    box-shadow: 1px 1px $c-main, 2px 2px $c-main, 3px 3px $c-main,
+      4px 4px $c-main;
+    color: $c-main;
+
+    @media (min-width: 500px) {
+      padding: 2em;
+    }
   }
 
   .Display {
-    padding: 1em;
-    background-color: #fff;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .Measurements {
     display: flex;
-    width: 100%;
-  }
-
-  .Measurement {
+    align-items: center;
+    justify-content: space-between;
     flex: 1;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .Measurement.is-active {
-    font-weight: bold;
-    border-bottom: 2px solid green;
-  }
-
-  .Salts {
-    width: 100%;
-    margin-top: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 3px;
+    padding: 0.5em;
+    padding-top: 0.5em;
+    padding-right: 0.75em;
+    padding-bottom: 0.5em;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 1.5em;
+    font-weight: 900;
     font-variant-numeric: tabular-nums;
-  }
-
-  .Salt--important td {
-    /* font-weight: bold; */
-  }
-
-  .Salt-weight {
     text-align: right;
+    line-height: 1;
   }
 
   .NumPad {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 3px;
-    margin-top: 2em;
+    touch-action: manipulation;
   }
 
-  .NumPad-clearContainer {
-  }
-
-  .NumPad-clearButton {
-    display: block;
-    width: 100%;
-    height: 100%;
+  .ResetButton {
     border: 0;
+    padding: 0.75em;
     border-radius: 3px;
-    background-color: #de7119;
-    color: #fff;
-    font-size: 1em;
+    background-color: rgba($c-main, 0.1);
+    color: rgba($c-main, 0.5);
+    font-size: 1rem;
     font-weight: bold;
-
-    &:disabled,
-    &:disabled:hover {
-      background-color: lighten(desaturate(#de7119, 55%), 25%);
-    }
+    line-height: 1;
 
     &:hover {
-      background-color: darken(#de7119, 3%);
+      background-color: rgba($c-main, 0.2);
     }
 
     &:active {
-      background-color: darken(#de7119, 5%);
+      background-color: rgba($c-main, 0.3);
     }
   }
 
   .NumPad-buttonContainer {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 3px;
   }
 
   .NumPad-button {
-    padding: 1em;
+    padding-top: 0.75em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 0.75em;
     border: 0;
     border-radius: 3px;
-    background-color: #18b0b0;
+    background-color: $c-main;
     color: #fff;
     font-size: 1em;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
 
     &:disabled,
     &:disabled:hover {
-      background-color: lighten(desaturate(#18b0b0, 55%), 25%);
+      background-color: lighten(desaturate($c-main, 55%), 25%);
     }
 
     &:hover {
-      background-color: darken(#18b0b0, 3%);
+      background-color: darken($c-main, 5%);
     }
 
     &:active {
-      background-color: darken(#18b0b0, 5%);
+      background-color: darken($c-main, 9%);
     }
+  }
+
+  .Of {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .Explanation {
+    margin-top: 2rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 2em;
+    color: $c-main;
+
+    @media (min-width: 500px) {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+
+    h2 {
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+      font-weight: 900;
+    }
+
+    p + p {
+      margin-top: 0.25rem;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    hr {
+      margin-top: 2em;
+      margin-bottom: 2em;
+      border: 0;
+      border-bottom: 2px solid $c-main;
+    }
+  }
+
+  .Explanation-who {
+    font-size: 0.75em;
+    text-align: center;
+  }
+
+  .Result-number {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    font-size: 2em;
+    font-weight: 900;
   }
 </style>
 
-<div class="Container">
-  <!-- <input type="range" bind:value={selected} min="0" max={options.length - 1} /> -->
-
-  <p>Recipe calls for</p>
-
-  <h1 class="Display">{Spoons.convert(amount)}</h1>
-
-  <p>of</p>
-
-  <div>
-    {#each salts as salt, index}
-      <div>
-        <label>
-          <input type="radio" bind:group={selectedSalt} value={index} />
-          {salt.name}
-        </label>
-      </div>
-    {/each}
+<div class="u-limiter" id="top">
+  <div class="Bean">
+    <h1 class="Bean-title">Salt Bae</h1>
+    <img src={claraImage} alt="" class="Bean-image" />
   </div>
 
-  <p>
-    that's about
-    <strong>
-      {(salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2)}g
-    </strong>
-  </p>
+  <div class="Container">
+    <!-- <input type="range" bind:value={selected} min="0" max={options.length - 1} /> -->
 
-  <!-- <div class="Measurements">
-    {#each options as option, index}
-      <div
-        class="Measurement {index === selected ? 'is-active' : ''}"
-        on:click={() => (selected = index)}>
-        {option.name}
+    <p class="Of">The recipe calls for</p>
+    <div class="Display">
+      <button class="ResetButton" on:click={() => (amount = 0)}>Reset</button>
+      {Spoons.convert(amount)}
+    </div>
+
+    <div class="NumPad">
+      <div class="NumPad-buttonContainer">
+        {#each [0.125, 0.25, 0.5, 1] as change}
+          <button class="NumPad-button" on:click={changeAmount(change)}>
+            + {Spoons.convert(change)}
+          </button>
+        {/each}
       </div>
-    {/each}
-  </div> -->
-
-  <!-- <table class="Salts">
-    {#each salts as salt}
-      <tr class="Salt {salt.bold ? 'Salt--important' : ''}">
-        <td>{salt.name}</td>
-        <td class="Salt-weight">
-          {(salt.gramsPerTeaSpoon * amount).toFixed(2)}g
-        </td>
-      </tr>
-    {/each}
-  </table> -->
-
-  <div class="NumPad">
-    <div class="NumPad-clearContainer">
-      <button class="NumPad-clearButton" on:click={() => (amount = 0)}>
-        Reset
-      </button>
     </div>
 
-    <div class="NumPad-buttonContainer">
-      {#each [0.125, 0.25, 0.5, 1] as change}
-        <!-- <button
-          class="NumPad-button"
-          on:click={changeAmount(-change)}
-          disabled={amount === 0}>
-          - {Spoons.convert(change)}
-        </button> -->
-        <button class="NumPad-button" on:click={changeAmount(change)}>
-          + {Spoons.convert(change)}
-        </button>
-      {/each}
-    </div>
+    <p class="Of">of</p>
+
+    <Switch options={salts} bind:value={selectedSalt} />
+
+    <p style="margin-top: 1em;">
+      That's about
+      <strong class="Result-number">
+        {(salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2)}g
+      </strong>
+      of salt.
+    </p>
+  </div>
+
+  <div class="Explanation">
+    <h2>What is this?</h2>
+
+    <p>
+      Lots of recipes (for example those by <a href="https://www.bonappetit.com/">Bon Appétit</a>) call for a specific amount of salt but only specify the volumes for specific brands of salt. Home cooks outside the US (like me!) may not be able to get salt from the specified brands, but still want to use the correct amount of salt.
+    </p>
+
+    <p>
+      That’s why I built <strong>Salt Bae</strong>: It converts teaspoons of <em>Morton’s Kosher Salt</em> or <em>Diamond Crystal Kosher Salt</em> to their weight in grams.
+    </p>
+
+    <h2>How to Use</h2>
+
+    <p>Enter the needed amount of teaspoons and select the Salt that is specified in the recipe. <strong>Salt Bae</strong> will instantly display how many grams of salt you need.</p>
+
+    <p>
+      <strong>For example:</strong> If the recipe calls for <a href="#top" on:click={event => { amount = 2.5; selectedSalt = 1}}>2½ tsp of Diamond Crystal</a>, you can see that you need around <strong>7.14g</strong> of whatever salt you want to use.
+    </p>
+
+    <hr>
+
+    <p class="Explanation-who">
+      Built by <a href="https://twitter.com/danjel">@danjel</a> with feedback from <a href="https://twitter.com/wundertaeter">@wundertaeter</a>.
+    </p>
   </div>
 </div>
