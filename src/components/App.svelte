@@ -121,11 +121,9 @@
 
   .Bean-image {
     display: block;
-    width: (728px / 5);
-    height: (807px / 5);
+    width: (292px / 2);
+    height: (264px / 2);
     min-width: (728px / 5);
-    margin-bottom: -2rem;
-    mix-blend-mode: multiply;
 
     @media (min-width: 350px) {
       margin-right: 1em;
@@ -282,8 +280,6 @@
   </div>
 
   <div class="Container">
-    <!-- <input type="range" bind:value={selected} min="0" max={options.length - 1} /> -->
-
     <p class="Of">The recipe calls for</p>
     <div class="Display">
       <button class="ResetButton" on:click={() => (amount = 0)}>Reset</button>
