@@ -47,7 +47,7 @@ export function convert(amount, showUnit = true) {
 }
 
 function integerDivision(x, y) {
-  var quotient = Math.floor(x / y)
-  var remainder = x % y
+  const quotient = Math.floor(x / y)
+  const remainder = x % y
   return [quotient, remainder]
 }

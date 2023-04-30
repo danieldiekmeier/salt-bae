@@ -1,35 +1,107 @@
 <script>
-  import Switch from './Switch.svelte'
+  import Switch from '$lib/components/Switch.svelte'
   import * as Spoons from '../lib/spoons'
   import claraImage from '../assets/clara.png'
 
-  let selected = 0
   let selectedSalt = 0
   let amount = 1
-
-  const options = [
-    { name: '1/8 tsp', amount: 1 / 8 },
-    { name: '1/4 tsp', amount: 1 / 4 },
-    { name: '1/2 tsp', amount: 1 / 2 },
-    { name: '1 tsp', amount: 1 },
-    { name: '2 3/4', amount: 2.75 },
-    { name: '1 1/2', amount: 1.5 },
-    { name: '1 tbsp', amount: 3 }
-  ]
 
   const salts = [
     { name: 'Morton’s Kosher Salt', gramsPerTeaSpoon: 241 / 48, bold: true },
     {
       name: 'Diamond Crystal Kosher Salt',
       gramsPerTeaSpoon: 137 / 48,
-      bold: true
-    }
+      bold: true,
+    },
   ]
 
   function changeAmount(howMuch) {
     return () => (amount = Math.max(amount + howMuch, 0))
   }
 </script>
+
+<div class="u-limiter" id="top">
+  <div class="Bean">
+    <h1 class="Bean-title">Salt Bae</h1>
+    <img src={claraImage} alt="" class="Bean-image" />
+  </div>
+
+  <div class="Container">
+    <p class="Of">The recipe calls for</p>
+    <div class="Display">
+      <button class="ResetButton" on:click={() => (amount = 0)}>Reset</button>
+      {Spoons.convert(amount)}
+    </div>
+
+    <div class="NumPad">
+      <div class="NumPad-buttonContainer">
+        {#each [0.125, 0.25, 0.5, 1] as change}
+          <button class="NumPad-button" on:click={changeAmount(change)}>
+            + {Spoons.convert(change)}
+          </button>
+        {/each}
+      </div>
+    </div>
+
+    <p class="Of">of</p>
+
+    <Switch options={salts} bind:value={selectedSalt} />
+
+    <p style="margin-top: 1em;">
+      That's about
+      <strong class="Result-number">
+        {(salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2)}g
+      </strong>
+      of salt.
+    </p>
+  </div>
+
+  <div class="Explanation">
+    <h2>What is this?</h2>
+
+    <p>
+      Lots of recipes (for example those by <a
+        href="https://www.bonappetit.com/">Bon Appétit</a
+      >) call for a specific amount of salt but only specify the volumes for
+      specific brands of salt. Home cooks outside the US (like me!) may not be
+      able to get salt from the specified brands, but still want to use the
+      correct amount of salt.
+    </p>
+
+    <p>
+      That’s why I built <strong>Salt Bae</strong>: It converts teaspoons of
+      <em>Morton’s Kosher Salt</em>
+      or <em>Diamond Crystal Kosher Salt</em> to their weight in grams.
+    </p>
+
+    <h2>How to Use</h2>
+
+    <p
+      >Enter the needed amount of teaspoons and select the Salt that is
+      specified in the recipe. <strong>Salt Bae</strong> will instantly display how
+      many grams of salt you need.</p
+    >
+
+    <p>
+      <strong>For example:</strong> If the recipe calls for
+      <a
+        href="#top"
+        on:click={(event) => {
+          amount = 2.5
+          selectedSalt = 1
+        }}>2½ tsp of Diamond Crystal</a
+      >, you can see that you need around <strong>7.14g</strong> of whatever salt
+      you want to use.
+    </p>
+
+    <hr />
+
+    <p class="Explanation-who">
+      Built by <a href="https://twitter.com/danjel">@danjel</a> with feedback
+      from <a href="https://twitter.com/wundertaeter">@wundertaeter</a>.
+    </p>
+  </div>
+</div>
 
 <style lang="scss">
   $c-background: #ffda08;
@@ -73,7 +145,8 @@
   :global(body) {
     padding: 0.5em;
     padding-top: 0;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     line-height: 1.4;
     background-color: rgba($c-main, 0.05);
@@ -121,9 +194,9 @@
 
   .Bean-image {
     display: block;
-    width: (292px / 2);
-    height: (264px / 2);
-    min-width: (728px / 5);
+    width: calc(292px / 2);
+    height: calc(264px / 2);
+    min-width: calc(728px / 5);
 
     @media (min-width: 350px) {
       margin-right: 1em;
@@ -272,66 +345,3 @@
     font-weight: 900;
   }
 </style>
-
-<div class="u-limiter" id="top">
-  <div class="Bean">
-    <h1 class="Bean-title">Salt Bae</h1>
-    <img src={claraImage} alt="" class="Bean-image" />
-  </div>
-
-  <div class="Container">
-    <p class="Of">The recipe calls for</p>
-    <div class="Display">
-      <button class="ResetButton" on:click={() => (amount = 0)}>Reset</button>
-      {Spoons.convert(amount)}
-    </div>
-
-    <div class="NumPad">
-      <div class="NumPad-buttonContainer">
-        {#each [0.125, 0.25, 0.5, 1] as change}
-          <button class="NumPad-button" on:click={changeAmount(change)}>
-            + {Spoons.convert(change)}
-          </button>
-        {/each}
-      </div>
-    </div>
-
-    <p class="Of">of</p>
-
-    <Switch options={salts} bind:value={selectedSalt} />
-
-    <p style="margin-top: 1em;">
-      That's about
-      <strong class="Result-number">
-        {(salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2)}g
-      </strong>
-      of salt.
-    </p>
-  </div>
-
-  <div class="Explanation">
-    <h2>What is this?</h2>
-
-    <p>
-      Lots of recipes (for example those by <a href="https://www.bonappetit.com/">Bon Appétit</a>) call for a specific amount of salt but only specify the volumes for specific brands of salt. Home cooks outside the US (like me!) may not be able to get salt from the specified brands, but still want to use the correct amount of salt.
-    </p>
-
-    <p>
-      That’s why I built <strong>Salt Bae</strong>: It converts teaspoons of <em>Morton’s Kosher Salt</em> or <em>Diamond Crystal Kosher Salt</em> to their weight in grams.
-    </p>
-
-    <h2>How to Use</h2>
-
-    <p>Enter the needed amount of teaspoons and select the Salt that is specified in the recipe. <strong>Salt Bae</strong> will instantly display how many grams of salt you need.</p>
-
-    <p>
-      <strong>For example:</strong> If the recipe calls for <a href="#top" on:click={event => { amount = 2.5; selectedSalt = 1}}>2½ tsp of Diamond Crystal</a>, you can see that you need around <strong>7.14g</strong> of whatever salt you want to use.
-    </p>
-
-    <hr>
-
-    <p class="Explanation-who">
-      Built by <a href="https://twitter.com/danjel">@danjel</a> with feedback from <a href="https://twitter.com/wundertaeter">@wundertaeter</a>.
-    </p>
-  </div>
-</div>

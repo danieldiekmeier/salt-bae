@@ -5,19 +5,22 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "parcel serve src/index.html",
-    "build": "rm -rf dist && parcel build --public-url /salt src/index.html",
+    "dev": "vite dev",
+    "build": "vite build",
     "test": "node --test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^1.12.4",
-    "parcel-plugin-svelte": "^4.0.6",
-    "sass": "^1.26.3",
-    "svelte": "^3.20.1",
-    "svelte-preprocess": "^3.7.1"
+    "svelte": "^3.58.0"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^2.0.2",
+    "@sveltejs/kit": "^1.15.9",
+    "@sveltejs/vite-plugin-svelte": "^2.1.1",
+    "sass": "^1.62.1",
+    "vite": "^4.3.3"
   },
   "prettier": {
     "semi": false,
