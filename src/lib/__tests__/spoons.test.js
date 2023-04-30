@@ -1,23 +1,24 @@
-import test from 'ava'
+import { test } from 'node:test'
+import assert from 'node:assert'
 
-import * as Spoons from '../spoons'
+import * as Spoons from '../spoons.js'
 
-test('convert returns a string representation', t => {
+test('convert returns a string representation', () => {
   const result = Spoons.convert(1)
-  t.is(result, '1 tsp')
+  assert.strictEqual(result, '1 tsp')
 })
 
-test('convert 1/2', t => {
+test('convert 1/2', () => {
   const result = Spoons.convert(0.5)
-  t.is(result, '½ tsp')
+  assert.strictEqual(result, '½ tsp')
 })
 
-test('convert 4.5 to 1 tbsp, 1.5 tsp', t => {
+test('convert 4.5 to 1 tbsp, 1.5 tsp', () => {
   const result = Spoons.convert(4.875)
-  t.is(result, '1 tbsp, 1⅞ tsp')
+  assert.strictEqual(result, '1 tbsp, 1⅞ tsp')
 })
 
-test('convert 0 to 0 tsp', t => {
+test('convert 0 to 0 tsp', () => {
   const result = Spoons.convert(0)
-  t.is(result, '0 tsp')
+  assert.strictEqual(result, '0 tsp')
 })

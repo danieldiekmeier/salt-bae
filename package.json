@@ -3,27 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "parcel serve src/index.html",
     "build": "rm -rf dist && parcel build --public-url /salt src/index.html",
-    "test": "ava"
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ava": "^3.5.2",
-    "esm": "^3.2.25",
     "parcel": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.6",
     "sass": "^1.26.3",
     "svelte": "^3.20.1",
     "svelte-preprocess": "^3.7.1"
-  },
-  "ava": {
-    "require": [
-      "esm"
-    ]
   },
   "prettier": {
     "semi": false,
