@@ -5,7 +5,7 @@ const signs = [
   [0.5, '½'],
   [0.625, '⅝'],
   [0.75, '¾'],
-  [0.875, '⅞']
+  [0.875, '⅞'],
 ]
 
 export function convert(amount, showUnit = true) {
@@ -30,7 +30,7 @@ export function convert(amount, showUnit = true) {
   }
 
   // remainingAmount is < 1 now
-  const matchingSign = signs.find(sign => sign[0] === remainingAmount)
+  const matchingSign = signs.find((sign) => sign[0] === remainingAmount)
   if (matchingSign) {
     teaSpoons += matchingSign[1]
   }
