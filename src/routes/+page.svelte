@@ -3,9 +3,6 @@
   import * as Spoons from '../lib/spoons'
   import claraImage from '../assets/clara.png'
 
-  let selectedSalt = 0
-  let amount = 1
-
   const salts = [
     { name: 'Morton’s Kosher Salt', gramsPerTeaSpoon: 241 / 48, bold: true },
     {
@@ -14,6 +11,12 @@
       bold: true,
     },
   ]
+
+  let selectedSalt = $state(0)
+  let amount = $state(1)
+  let result = $derived(
+    (salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2),
+  )
 
   function changeAmount(howMuch) {
     return () => (amount = Math.max(amount + howMuch, 0))
@@ -29,14 +32,14 @@
   <div class="Container">
     <p class="Of">The recipe calls for</p>
     <div class="Display">
-      <button class="ResetButton" on:click={() => (amount = 0)}>Reset</button>
+      <button class="ResetButton" onclick={() => (amount = 0)}>Reset</button>
       {Spoons.convert(amount)}
     </div>
 
     <div class="NumPad">
       <div class="NumPad-buttonContainer">
         {#each [0.125, 0.25, 0.5, 1] as change}
-          <button class="NumPad-button" on:click={changeAmount(change)}>
+          <button class="NumPad-button" onclick={changeAmount(change)}>
             + {Spoons.convert(change)}
           </button>
         {/each}
@@ -49,9 +52,7 @@
 
     <p style="margin-top: 1em;">
       That's about
-      <strong class="Result-number">
-        {(salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2)}g
-      </strong>
+      <strong class="Result-number">{result}g</strong>
       of salt.
     </p>
   </div>
@@ -86,7 +87,7 @@
       <strong>For example:</strong> If the recipe calls for
       <a
         href="#top"
-        on:click={(event) => {
+        onclick={(event) => {
           amount = 2.5
           selectedSalt = 1
         }}>2½ tsp of Diamond Crystal</a
@@ -111,7 +112,9 @@
     font-family: 'Nunito';
     font-style: normal;
     font-weight: normal;
-    src: local('Nunito SemiBold'), local('Nunito-SemiBold'),
+    src:
+      local('Nunito SemiBold'),
+      local('Nunito-SemiBold'),
       url('../assets/fonts/nunito-v12-latin-600.woff2') format('woff2'),
       url('../assets/fonts/nunito-v12-latin-600.woff') format('woff');
   }
@@ -120,7 +123,9 @@
     font-family: 'Nunito';
     font-style: italic;
     font-weight: normal;
-    src: local('Nunito SemiBold Italic'), local('Nunito-SemiBoldItalic'),
+    src:
+      local('Nunito SemiBold Italic'),
+      local('Nunito-SemiBoldItalic'),
       url('../assets/fonts/nunito-v12-latin-600italic.woff2') format('woff2'),
       url('../assets/fonts/nunito-v12-latin-600italic.woff') format('woff');
   }
@@ -129,7 +134,9 @@
     font-family: 'Nunito';
     font-style: normal;
     font-weight: 900;
-    src: local('Nunito Black'), local('Nunito-Black'),
+    src:
+      local('Nunito Black'),
+      local('Nunito-Black'),
       url('../assets/fonts/nunito-v12-latin-900.woff2') format('woff2'),
       url('../assets/fonts/nunito-v12-latin-900.woff') format('woff');
   }
@@ -145,8 +152,18 @@
   :global(body) {
     padding: 0.5em;
     padding-top: 0;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family:
+      'Nunito',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      'Open Sans',
+      'Helvetica Neue',
+      sans-serif;
     font-size: 16px;
     line-height: 1.4;
     background-color: rgba($c-main, 0.05);
@@ -209,7 +226,10 @@
     background-color: $c-background;
     // border: 3px solid $c-main;
     border-radius: 1em;
-    box-shadow: 1px 1px $c-main, 2px 2px $c-main, 3px 3px $c-main,
+    box-shadow:
+      1px 1px $c-main,
+      2px 2px $c-main,
+      3px 3px $c-main,
       4px 4px $c-main;
     color: $c-main;
 

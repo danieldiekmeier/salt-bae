@@ -1,7 +1,15 @@
 <script>
-  export let options
-  export let value = 0
+  let { options, value } = $props()
 </script>
+
+<div class="Switch">
+  {#each options as option, index}
+    <label class="Switch-item" class:is-active={index === value}>
+      <input type="radio" bind:group={value} value={index} />
+      {option.name}
+    </label>
+  {/each}
+</div>
 
 <style lang="scss">
   $c-main: #424874;
@@ -42,12 +50,3 @@
     }
   }
 </style>
-
-<div class="Switch">
-  {#each options as option, index}
-    <label class="Switch-item {index === value ? 'is-active' : ''}">
-      <input type="radio" bind:group={value} value={index} />
-      {option.name}
-    </label>
-  {/each}
-</div>
