@@ -1,5 +1,5 @@
 import adapter from '@sveltejs/adapter-static'
-import { vitePreprocess } from '@sveltejs/kit/vite'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 
 const dev = process.argv.includes('dev')
 
@@ -17,11 +17,9 @@ const config = {
   },
 
   vitePlugin: {
-    experimental: {
-      inspector: {
-        holdMode: true,
-        toggleKeyCombo: 'meta-alt-shift',
-      },
+    inspector: {
+      holdMode: true,
+      toggleKeyCombo: 'meta-alt-shift',
     },
   },
 }
