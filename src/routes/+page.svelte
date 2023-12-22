@@ -98,8 +98,9 @@
     <hr />
 
     <p class="Explanation-who">
-      Built by <a href="https://twitter.com/danjel">@danjel</a> with feedback
-      from <a href="https://twitter.com/wundertaeter">@wundertaeter</a>.
+      Built by <a href="https://mastodon.social/@danjel">@danjel</a>
+      with feedback from
+      <a href="https://instagram.com/wundertaeter">@wundertaeter</a>.
     </p>
   </div>
 </div>
