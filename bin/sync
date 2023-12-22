@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+pnpm build
+rsync --verbose --recursive --delete -e ssh ./build/ danjel7@danieldiekmeier.de:/var/www/virtual/danjel7/html/salt
