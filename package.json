@@ -13,14 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "svelte": "5.0.0-next.26"
+    "svelte": "5.0.0-next.35"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.0.6",
+    "@sveltejs/kit": "^2.3.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
-    "sass": "^1.69.5",
-    "vite": "^5.0.10"
+    "sass": "^1.69.7",
+    "vite": "^5.0.11"
   },
   "prettier": {
     "semi": false,
