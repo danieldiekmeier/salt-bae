@@ -1,5 +1,5 @@
 <script>
-  let { options, value } = $props()
+  let { options, value = $bindable() } = $props()
 </script>
 
 <div class="Switch">
