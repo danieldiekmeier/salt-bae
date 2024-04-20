@@ -7,24 +7,28 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "test": "node --test"
+    "ci": "svelte-check && pnpm test",
+    "test": "node --test",
+    "deps:update": "corepack use pnpm@latest && pnpm update --latest --interactive"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "svelte": "5.0.0-next.90"
+    "svelte": "5.0.0-next.110"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.5.5",
-    "@sveltejs/vite-plugin-svelte": "^3.0.2",
-    "sass": "^1.72.0",
-    "vite": "^5.2.7"
+    "@sveltejs/kit": "^2.5.7",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "sass": "^1.75.0",
+    "svelte-check": "^3.6.9",
+    "vite": "^5.2.10"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "htmlWhitespaceSensitivity": "strict"
-  }
+  },
+  "packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e"
 }
