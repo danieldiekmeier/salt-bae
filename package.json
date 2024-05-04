@@ -9,26 +9,26 @@
     "build": "vite build",
     "ci": "svelte-check && pnpm test",
     "test": "node --test",
-    "deps:update": "corepack use pnpm@latest && pnpm update --latest --interactive"
+    "deps:update": "corepack use pnpm@latest && pnpm install svelte@next && pnpm update --latest --interactive"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "svelte": "5.0.0-next.110"
+    "svelte": "5.0.0-next.123"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.7",
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
-    "sass": "^1.75.0",
-    "svelte-check": "^3.6.9",
-    "vite": "^5.2.10"
+    "sass": "^1.76.0",
+    "svelte-check": "^3.7.1",
+    "vite": "^5.2.11"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "htmlWhitespaceSensitivity": "strict"
   },
-  "packageManager": "pnpm@9.0.4+sha256.caa915eaae9d9aefccf50ee8aeda25a2f8684d8f9d5c6e367eaf176d97c1f89e"
+  "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3"
 }
