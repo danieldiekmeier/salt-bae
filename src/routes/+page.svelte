@@ -106,6 +106,8 @@
 </div>
 
 <style lang="scss">
+  @use 'sass:color';
+
   $c-background: #ffda08;
   $c-main: #424874;
 
@@ -303,15 +305,19 @@
 
     &:disabled,
     &:disabled:hover {
-      background-color: lighten(desaturate($c-main, 55%), 25%);
+      background-color: color.adjust(
+        $c-main,
+        $saturation: -55%,
+        $lightness: 25%
+      );
     }
 
     &:hover {
-      background-color: darken($c-main, 5%);
+      background-color: color.adjust($c-main, $lightness: -9%);
     }
 
     &:active {
-      background-color: darken($c-main, 9%);
+      background-color: color.adjust($c-main, $lightness: -9%);
     }
   }
 
