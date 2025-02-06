@@ -1,4 +1,5 @@
 <script>
+  import { Tween } from 'svelte/motion'
   import Switch from '$lib/components/Switch.svelte'
   import * as Spoons from '../lib/spoons'
   import claraImage from '../assets/clara.png'
@@ -14,12 +15,13 @@
 
   let selectedSalt = $state(0)
   let amount = $state(1)
-  let result = $derived(
-    (salts[selectedSalt].gramsPerTeaSpoon * amount).toFixed(2),
-  )
+  let tween = Tween.of(() => salts[selectedSalt].gramsPerTeaSpoon * amount, {
+    duration: 200,
+  })
+  let result = $derived(tween.current.toFixed(2))
 
   function changeAmount(howMuch) {
-    return () => (amount = Math.max(amount + howMuch, 0))
+    amount = Math.max(amount + howMuch, 0)
   }
 </script>
 
@@ -39,7 +41,7 @@
     <div class="NumPad">
       <div class="NumPad-buttonContainer">
         {#each [0.125, 0.25, 0.5, 1] as change}
-          <button class="NumPad-button" onclick={changeAmount(change)}>
+          <button class="NumPad-button" onclick={() => changeAmount(change)}>
             + {Spoons.convert(change)}
           </button>
         {/each}
